@@ -11,7 +11,7 @@ tags:
 
 ## Coke machine
 
-```C
+```cpp
 // Initially, no coke
 Semaphore fullSlots = 0;
 // Initially, num empty slots
@@ -46,7 +46,7 @@ Consumer() {
 
 - Mesa Monitor Structure
 
-```C
+```cpp
 lock
 while (need to wait) { // Mesa style
   cv.wait();
@@ -64,7 +64,7 @@ unlock
 
 ## Mesa vs. Hoare monitors
 
-```C
+```cpp
 while (isEmpty(&queue)) {
   cond_wait(&buf_CV, &buf_lock);
 } // Mesa style, when signaled, waiter wait in the ready queue
@@ -77,7 +77,7 @@ if (is Empty(&queue)) {
 
 ## Does notify_one need to be in the lock?
 
-```C++
+```cpp
 thread t;
 
 void foo() {
@@ -108,7 +108,7 @@ void main() {
 
 ## Semaphore to Monitor
 
-```C
+```cpp
 Wait(Lock *the_lock, Semaphore *the_sema) {
   //keep a conditional variable
   release(the_lock);
