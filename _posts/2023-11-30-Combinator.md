@@ -66,7 +66,7 @@ fact = (lambda f: f(f))(lambda f: lambda n : (lambda ff :1 if n == 1 else n * ff
 ```
 
 ```python
-Y = lambda func: (lambda f: f(f))(lambda f: target(lambda n : f(f)(n)))
+Y = lambda func: (lambda f: f(f))(lambda f: func(lambda n : f(f)(n)))
 
 fact = Y(lambda f : (lambda n : 1 if n == 1 else n * f(n - 1)))
 fact(10)
