@@ -66,3 +66,13 @@ stty -a
 export TERM=xterm-256color
 stty rows 24 columns 80
 ```
+
+## tty
+
+```bash
+# pass text to another tty
+# tty1
+echo "hello" > /dev/pts/0
+# tty2
+cat /dev/pts/1
+```
