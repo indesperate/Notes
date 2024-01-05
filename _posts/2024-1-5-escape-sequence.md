@@ -50,7 +50,7 @@ echo -ne "\e[1;10H"
 
 4. 另外一个比较常用是`<CSI>nm` 用来改变文字的格式, 也就是 SGR
 
-### SGR(Selcet Graphic Rendition), `<CSI>nm`
+### SGR(Select Graphic Rendition), `<CSI>nm`
 
 这里选择几个比较常见的 SGR, 具体可以见 wiki
 
@@ -58,9 +58,9 @@ echo -ne "\e[1;10H"
 
 2. n 从 1-29 都是一些 style 设置,30 开始至 49 都是设置颜色, 往后又是一些 style 设置, 至 90 开始是亮色的设置
 
-   - 颜色 FG(foreground) 范围在 30-37, 90-97(bright color), BG(background) 40-47, 100-107(bright color)
+- 颜色 FG(foreground) 范围在 30-37, 90-97(bright color), BG(background) 40-47, 100-107(bright color)
 
-3. - 以上都是 3-bit or 4-bit 色, 8bit 色便有自己独特的格式 `<ESC>[38;5;nm`(FG) `<ESC>[48;5;nm`(BG)
+3. 以上都是 3-bit or 4-bit 色, 8bit 色便有自己独特的格式 `<ESC>[38;5;nm`(FG) `<ESC>[48;5;nm`(BG)
 
 - 此处的 n 可以为以下值
   - 0-7: standard colors (as in ESC [ 30–37 m)
