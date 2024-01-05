@@ -34,19 +34,25 @@ Escape sequences 是一种用于编程和数据通信中的特殊字符序列, �
 
    - CSI = `\e[`
 
-2. cursor scroll 相关
+2. cursor 相关
 
    - `<CSI>nA`, Cursor UP n line, `<CSI>nE` Cursor n Next line,
      `<CSI>n;mH` cursor position row n, column m
      `<CSI>nS` Scroll Up n line
 
+   - `<CSI>n q`, 可以改变光标形状
+
+   - `<CSI>?25h`, `<CSI>?25l`显示隐藏光标
+
+3. 此外还有清屏的
+
+   - `<CSI>J`清除当前屏, `<CSI>2J`, 清除所有
+
+4. 另外一个比较常用是`<CSI>nm` 用来改变文字的格式, 也就是 SGR
+
 ```bash
 echo -ne "\e[1;10H"
 ```
-
-3. 此外还有 Hide Cursor, report cursor position
-
-4. 另外一个比较常用是`<CSI>nm` 用来改变文字的格式, 也就是 SGR
 
 ### SGR(Select Graphic Rendition), `<CSI>nm`
 
@@ -98,3 +104,13 @@ echo "\e[38;2;100;1;100m some_text"
 # 以 OSC 开头, 设置剪切板为 c, 接 base64 文本, 接终止符号 \a
 echo -ne "\e]52;c;$(echo hello | base64)\a"
 ```
+
+## vim auto change cursor in cmd mode
+
+```bash
+set show-mode-in-prompt on
+set vi-cmd-mode-string "\1\e[1 q\2"
+set vi-ins-mode-string "\1\e[5 q\2"
+```
+
+`\1`, `\2` 表示 [psreadline](https://www.gnu.org/software/bash/manual/bash.html#Readline-Init-File) 的 escape sequence 语法
