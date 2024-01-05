@@ -18,29 +18,27 @@ Escape sequences 是一种用于编程和数据通信中的特殊字符序列, �
 
 1. 直接表示 ASCII characters
 
-- `\n` (newline), `\t` (tab), `\\` (backslash), `\a` (bell), `\b` (backspace). 通过 `man ASCII` 可以直接查看, 这里的 n t 为简写, 实际上可以用不同进制的数来写
+   - `\n` (newline), `\t` (tab), `\\` (backslash), `\a` (bell), `\b` (backspace). 通过 `man ASCII` 可以直接查看, 这里的 n t 为简写, 实际上可以用不同进制的数来写
 
 2. ANSI Escape Sequences
 
-- 以`<ESC>`的 ASCII 码为开头, 可以为`\033`(8 进制) or `\x1b`(16 进制) or `\e`, 接相应的字符来表示不同的功能, `<ESC>`在 vim 里显示为`^[`
+   - 以`<ESC>`的 ASCII 码为开头, 可以为`\033`(8 进制) or `\x1b`(16 进制) or `\e`, 接相应的字符来表示不同的功能, `<ESC>`在 vim 里显示为`^[`
 
-- powershell 的默认转义符号不为`\`, 为`, 因为 windows 下这玩意是路径分隔符
+   - powershell 的默认转义符号不为`\`, 为`, 因为 windows 下这玩意是路径分隔符
 
-- `<ESC>\` 或者`\x9c` 一般表示为 ST, 为 String terminator, 但是现在`\a`, 也就是 bell 也可以为此作用, [stackoverflow](https://unix.stackexchange.com/questions/208436/bell-and-escape-character-in-prompt-string)上写了这个来由, 这个不是标准行为, 但大家都这么用
+   - `<ESC>\` 或者`\x9c` 一般表示为 ST, 为 String terminator, 但是现在`\a`, 也就是 bell 也可以为此作用, [stackoverflow](https://unix.stackexchange.com/questions/208436/bell-and-escape-character-in-prompt-string)上写了这个来由, 这个不是标准行为, 但大家都这么用
 
 ## Control Sequence Introducer (CSI)
 
 1. CSI 格式以`<ESC>`的 ASCII 开头, 接`[`符号, 这种特殊的格式便可以用来定义 font, cursor 等, Wiki 中给出了一些 squeunce 例子
 
-- CSI = `\e[`
+   - CSI = `\e[`
 
 2. cursor scroll 相关
 
-- `<CSI>nA`, Cursor UP n line, `<CSI>nE` Cursor n Next line,
-  `<CSI>n;mH` cursor position row n, column m
-  `<CSI>nS` Scroll Up n line
-
-- 简单的例子
+   - `<CSI>nA`, Cursor UP n line, `<CSI>nE` Cursor n Next line,
+     `<CSI>n;mH` cursor position row n, column m
+     `<CSI>nS` Scroll Up n line
 
 ```bash
 echo -ne "\e[1;10H"
@@ -68,15 +66,14 @@ echo -ne "\e[1;10H"
      - 16-231: 6 × 6 × 6 cube (216 colors): 16 + 36 × r + 6 × g + b (0 ≤ r, g, b ≤ 5)
      - 232-255: grayscale from dark to light in 24 steps
 
-```bash
-echo "\e[38;5;200m some_text"
-```
-
 4. 24-bit true color 也有自己的独特的格式
 
    - `<ESC>[38;2;r;g;bm`, r, g, b 对应色的 RGB
 
 ```bash
+# 8 bit color
+echo "\e[38;5;200m some_text"
+# true color
 echo "\e[38;2;100;1;100m some_text"
 ```
 
@@ -92,12 +89,12 @@ echo "\e[38;2;100;1;100m some_text"
 
 4. `<OSC>52;c;text\a`, 是可以控制系统剪切版的 Sequence, 此处的 text 需要时 base64 编码, c 是指定的剪贴板, 可以是 c(clipboard)、p(primary)、s(Secondary) 等，分别代表不同的剪切板, p, s 不太常用
 
+5. `<OSC>0;text\a`, 是可以控制终端标题
+
+6. 其他还有很多, 可以问 chatgpt, 基本就是终端控制
+
 ```bash
 # 设置剪切板为 hello
 # 以 OSC 开头, 设置剪切板为 c, 接 base64 文本, 接终止符号 \a
 echo -ne "\e]52;c;$(echo hello | base64)\a"
 ```
-
-5. `<OSC>0;text\a`, 是可以控制终端标题
-
-6. 其他还有很多, 可以问 chatgpt, 基本就是终端控制
