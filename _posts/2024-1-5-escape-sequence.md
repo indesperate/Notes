@@ -58,15 +58,15 @@ echo -ne "\e[1;10H"
 
 2. n 从 1-29 都是一些 style 设置,30 开始至 49 都是设置颜色, 往后又是一些 style 设置, 至 90 开始是亮色的设置
 
-- 颜色 FG(foreground) 范围在 30-37, 90-97(bright color), BG(background) 40-47, 100-107(bright color)
+   - 颜色 FG(foreground) 范围在 30-37, 90-97(bright color), BG(background) 40-47, 100-107(bright color)
 
 3. 以上都是 3-bit or 4-bit 色, 8bit 色便有自己独特的格式 `<ESC>[38;5;nm`(FG) `<ESC>[48;5;nm`(BG)
 
-- 此处的 n 可以为以下值
-  - 0-7: standard colors (as in ESC [ 30–37 m)
-  - 8-15: high intensity colors (as in ESC [ 90–97 m)
-  - 16-231: 6 × 6 × 6 cube (216 colors): 16 + 36 × r + 6 × g + b (0 ≤ r, g, b ≤ 5)
-  - 232-255: grayscale from dark to light in 24 steps
+   - 此处的 n 可以为以下值
+     - 0-7: standard colors (as in ESC [ 30–37 m)
+     - 8-15: high intensity colors (as in ESC [ 90–97 m)
+     - 16-231: 6 × 6 × 6 cube (216 colors): 16 + 36 × r + 6 × g + b (0 ≤ r, g, b ≤ 5)
+     - 232-255: grayscale from dark to light in 24 steps
 
 ```bash
 echo "\e[38;5;200m some_text"
@@ -74,7 +74,7 @@ echo "\e[38;5;200m some_text"
 
 4. 24-bit true color 也有自己的独特的格式
 
-- `<ESC>[38;2;r;g;bm`, r, g, b 对应色的 RGB
+   - `<ESC>[38;2;r;g;bm`, r, g, b 对应色的 RGB
 
 ```bash
 echo "\e[38;2;100;1;100m some_text"
