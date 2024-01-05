@@ -105,6 +105,10 @@ echo "\e[38;2;100;1;100m some_text"
 echo -ne "\e]52;c;$(echo hello | base64)\a"
 ```
 
+## tput
+
+- tput 其实就是一个打印 escape sequence 的工具, 将抽象的 escape sequence 转换为可读的命令输入
+
 ## vim auto change cursor in cmd mode
 
 ```bash
@@ -114,3 +118,17 @@ set vi-ins-mode-string "\1\e[5 q\2"
 ```
 
 `\1`, `\2` 表示 [psreadline](https://www.gnu.org/software/bash/manual/bash.html#Readline-Init-File) 的 escape sequence 语法
+
+## bash escape sequence
+
+- 此处 less 便会接收到 escape string, -R 使其可以解释 escape string
+
+```bash
+echo -e "\e[31mThis is red text\e[0m" | less -R
+```
+
+- 通过 sed 过滤 escape string
+
+```bash
+sed 's/\x1b\[[0-9;]*m//g'
+```
