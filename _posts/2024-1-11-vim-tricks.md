@@ -5,7 +5,7 @@ categories:
 tags:
   - Vim
   - Terminal
-last_modified_at: 2024-1-12
+last_modified_at: 2024-1-11
 ---
 
 # VIM
