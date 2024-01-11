@@ -132,3 +132,10 @@ echo -e "\e[31mThis is red text\e[0m" | less -R
 ```bash
 sed 's/\x1b\[[0-9;]*m//g'
 ```
+
+## vim escape sequence
+
+- 在 vim 中, `\r`实际被表现为`^M`, `\e`实际表现为`^[`
+- 其实就是用字符加`^`来代表控制字符, ASCII 值偏差 64
+- `\r` ASCII 是 13, `M` 的 ASCII 77(13 + 64)
+- `\e` ASCII 为 27, `[` 的 ASCII 91(64 + 27)
