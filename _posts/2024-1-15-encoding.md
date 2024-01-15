@@ -5,7 +5,7 @@ categories:
 tags:
   - UTF-8
   - Terminal
-last_modified_at: 2024-1-11
+last_modified_at: 2024-1-16
 ---
 
 # Encoding
