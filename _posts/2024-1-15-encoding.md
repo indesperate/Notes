@@ -64,3 +64,14 @@ convmv --notest -f cp936 -t utf-8 *.txt
 for path in os.listdir(b'path'):
   print(path.decode(encoding='cp936'))
 ```
+
+## 几种乱码形式
+
+- 不兼容的字符类型很可能会导致信息丢失, 使其无法还原
+
+1. 出现古文夹杂日韩文，以 GBK 读取 UTF-8 编码
+2. 出现方块形，以 UTF-8 读取 GBK
+3. 各种符号，以 ISO8859-1 方式读取 UTF-8
+4. 拼音码，带声调的字母，以 ISO8859-1 方式读取 GBK
+5. 长度为偶数正常, 长度为奇数时，最后的字符变成问号，以 GBK 读取 UTF-8 编码，再用 UTF-8 格式再次读取。
+6. 大部分文字为锟斤拷，以 UTF-8 方式读取 GBK 码，再次用 GBK 格式再次读取
