@@ -5,7 +5,7 @@ categories:
 tags:
   - UTF-8
   - Terminal
-last_modified_at: 2024-1-16
+last_modified_at: 2024-1-17
 ---
 
 # Encoding
@@ -41,3 +41,26 @@ $OutputEncoding = [console]::OutputEncoding = New-Object System.Text.UTF8Encodin
 - 最后终端编码如果是 gbk, 与 powershell 输出一致, 如此就不会出现乱码,
 
 - 当然最简单就是保证他们全部都是 utf-8, 最省心, 在 linux 其实就是这样
+
+## linux 下的不同
+
+- 在 linux bash 是没有 powershell 的 inputencoding 选项的, 其默认是与本地 locale 相关, 一般都为\*\*.UTF-8, 前缀一般是 en_US, zh_CN, 表示地区
+
+- 所以如果要显示 cp936 编码的文件, 就要格式转换, 使用 iconv
+
+```bash
+cat somefile | iconv -f cp936 -t utf-8
+```
+
+- 对于文件名, 则需要不同的处理, 因为 ntfs 默认编码为 utf-16, linux 默认为 utf-8, 一个 cp936 的文件, 在 ls 从文件系统读取文件名时就会乱码, 然后会输出乱码, 导致 iconv 出错, 我们必须想办法得到原来的二进制文件名
+
+- linux 下有 convmv 命令专门处理文件名, 或者用 python, 传入二进制路径得到二进制文件名从而 encoding 到正确的编码, 代码如下
+
+```bash
+convmv --notest -f cp936 -t utf-8 *.txt
+```
+
+```python
+for path in os.listdir(b'path'):
+  print(path.decode(encoding='cp936'))
+```
